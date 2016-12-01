@@ -41,11 +41,33 @@ PieceType Board::atLocation(int row, int col) {
 }
 
 int Board::toMove() const {
-    return 1;
+    if(nextPlayer_to_move == Player1){
+        return 1;
+    }
+    else(nextPlayer_to_move == Player2){
+        return 2;
+    }
 }
 
 Result Board::makeMove(int col) {
-    return NoResult;
+    if(getFirstFreeRow[col] == NUM_ROWS){
+        return IllegalMove;
+    }
+    // Put piece in board
+    data[getFirstFreeRow(col)][col] = nextPlayer_to_move;
+    updateToMove();
+    
+    if(isWin()) {
+        return Win;
+    }
+    else if(isBoardFull()) {
+        return Draw;
+    }
+    else {
+        return NoResult;
+    }
+    
+    
 }
 
 int Board::getFirstFreeRow(int col) const {
@@ -53,7 +75,14 @@ int Board::getFirstFreeRow(int col) const {
 }
 
 PieceType Board::updateToMove() {
-    return Player1;
+    if(nextPlayer_to_move == Player1){
+        nextPlayer_to_move == Player2;
+        return Player2;
+    }
+    else(nextPlayer_to_move == Player2){
+        nextPlayer_to_move == Player1;
+        return Player1;
+    }
 }
 
 bool Board::isBoardFull() const {
@@ -65,7 +94,11 @@ bool Board::inBounds(int row, int col) const {
 }
 
 int Board::piecesInDirection(int row, int col, int dRow, int dCol) const {
-    return 0;
+    for(dRow = 0; dRow < 4; dRow++) {
+        for(dCol = 3; dCol < 4; dCol++){
+            if([row][col]
+        }
+    }
 }
 
 bool Board::isWin(int row, int col) const {
